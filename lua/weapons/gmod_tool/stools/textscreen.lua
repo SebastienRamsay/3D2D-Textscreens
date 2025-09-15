@@ -63,6 +63,17 @@ function TOOL:LeftClick(tr)
 		end
 	end
 	if not hasText then return false end
+
+	-- RAMSAY
+	local hasBadWord = false
+	for i = 1, 5 do
+		local text = self:GetClientInfo("text" .. i) or ""
+		if hook.Call("RFilter_HasBadWord", nil, text, self:GetOwner()) then			hasBadWord = true
+		end
+	end
+	if hasBadWord then return false end
+	-- RAMSAY
+
 	local textScreen = ents.Create("sammyservers_textscreen")
 	textScreen:SetPos(tr.HitPos)
 	local angle = tr.HitNormal:Angle()
