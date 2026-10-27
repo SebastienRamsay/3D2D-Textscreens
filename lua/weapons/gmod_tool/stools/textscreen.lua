@@ -68,10 +68,12 @@ function TOOL:LeftClick(tr)
 	local hasBadWord = false
 	for i = 1, 5 do
 		local text = self:GetClientInfo("text" .. i) or ""
-		if hook.Call("RFilter_HasBadWord", nil, text, self:GetOwner()) then			hasBadWord = true
+		local hasBadwod, badWord = hook.Call("RFilter_HasBadWord", nil, text, self:GetOwner())
+		if hasBadwod then
+			ply:ChatPrint("Badword Detected: " .. badWord)
+			return false
 		end
 	end
-	if hasBadWord then return false end
 	-- RAMSAY
 
 	local textScreen = ents.Create("sammyservers_textscreen")
